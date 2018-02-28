@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"azureFunctions.projectLanguage": "PHP",
+		"azureFunctions.projectRuntime": "~1",
+		"azureFunctions.templateFilter": "All"
+	}
+}

@@ -1,0 +1,23 @@
+{
+    "name": "polewiak/PhotoGallery",
+    "description": "Storage Photos on Azure.",
+    "keywords": [ "php", "azure", "photo" ],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Chris Polewiak",
+            "email": "chris@polewiak.pl"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "microsoft/windowsazure": "^0.4",
+        "microsoft/azure-storage": "^0.19"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhotoGallery\\": "PhotoGallery/",
+            "codeStamp\\": "codeStamp/"
+        }
+    }
+}
