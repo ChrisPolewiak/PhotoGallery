@@ -1,12 +1,6 @@
 RewriteEngine On
-
-RewriteRule ^img(.*) /template/img$1 [PT]
-RewriteRule ^css(.*) /template/css$1 [PT]
-RewriteRule ^js(.*) /template/js$1 [PT]
-
-RewriteCond %{REQUEST_URI}% !^/engine.php.*
-RewriteCond %{REQUEST_URI}% !^/template/img.*
-RewriteCond %{REQUEST_URI}% !^/template/css.*
-RewriteCond %{REQUEST_URI}% !^/template/js.*
-RewriteCond %{REQUEST_URI}% !^/favicon.ico*
-RewriteRule ^(.*)$ engine.php/$1 [PT]
+RewriteBase /
+RewriteRule ^engine\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
