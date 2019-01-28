@@ -1,8 +1,5 @@
 <?php
 
-require_once 'vendor/autoload.php';
-require "../config.php";
-
 $q = $_GET["q"] ? $_GET["q"] : "";
 
 use PhotoGallery\Azure\AzureSearch;

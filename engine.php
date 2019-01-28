@@ -1,5 +1,8 @@
 <?php
 
+require "config.php";
+require_once 'vendor/autoload.php';
+
 if(!isset($_SERVER["PATH_INFO"])){
 	$_SERVER["PATH_INFO"] = "/index";
 }
