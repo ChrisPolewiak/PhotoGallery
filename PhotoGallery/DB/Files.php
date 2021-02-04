@@ -8,7 +8,7 @@ use MicrosoftAzure\Storage\Common\ServiceException;
 
 class Files {
 
-    function _constructor()
+    function __construct()
     {
 
     }
@@ -16,8 +16,8 @@ class Files {
     function params()
     {
         $params = func_get_args();
-        $this->ConnectionString_Primary   = $params[0]["AzureStorageConnectionString_Primary"];
-        $this->ConnectionString_Secondary = $params[0]["AzureStorageConnectionString_Secondary"];
+        $this->ConnectionString_Primary   = $params[0]['AzureStorageConnectionString_Primary'];
+        $this->ConnectionString_Secondary = $params[0]['AzureStorageConnectionString_Secondary'];
     }
 
     function listPath( $shareName, $path )

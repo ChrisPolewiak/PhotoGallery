@@ -1,4 +1,3 @@
-<xmp>
 <?php
 
 require "vendor/autoload.php";

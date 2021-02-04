@@ -6,6 +6,7 @@ require_once 'vendor/autoload.php';
 if(!isset($_SERVER["PATH_INFO"])){
 	$_SERVER["PATH_INFO"] = "/index";
 }
+
 ob_start();
 
 $urlarr = parse_url( $_SERVER["REQUEST_URI"] );

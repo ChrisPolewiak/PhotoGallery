@@ -6,7 +6,7 @@ use PhotoGallery\XML;
 
 class FileReader {
 
-    function _constructor()
+    function __construct()
     {
 
     }
@@ -21,10 +21,10 @@ class FileReader {
 
         // Get standard image parameters
         $size = GetImageSize( $file, $info );
-        $return["geometryWidth"] = $size[0];
-        $return["geometryHeight"] = $size[1];
-        $return["mime"] = $size["mime"];
-        $return["filename"] = basename($file);
+        $return['geometryWidth'] = $size[0];
+        $return['geometryHeight'] = $size[1];
+        $return['mime'] = $size['mime'];
+        $return['filename'] = basename($file);
 
         return $return;
     }

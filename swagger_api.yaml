@@ -1,0 +1,236 @@
+openapi: 3.0.0
+info:
+  description: This is Image Gallery server.
+  version: "1.0.0"
+  title: Image Gallery
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: chris@polewiak.pl
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ChrisPolewiak/ImageGallery/1.0.0
+  - url: 'https://petstore.swagger.io/v2'
+tags:
+  - name: photo
+    description: Photography
+
+paths:
+  /photo:
+    post:
+      tags:
+        - photo
+      summary: Add a new photo
+      operationId: addPhoto
+      responses:
+        '405':
+          description: Invalid input
+      security:
+        - gallery_auth:
+            - 'write:photo'
+            - 'read:photo'
+      requestBody:
+        $ref: '#/components/requestBodies/Photo'
+    put:
+      tags:
+        - photo
+      summary: Update an existing photo
+      operationId: updatePhoto
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Photo not found
+        '405':
+          description: Validation exception
+      security:
+        - gallery_auth:
+            - 'write:photo'
+            - 'read:photo'
+      requestBody:
+        $ref: '#/components/requestBodies/Photo'
+  '/photo/{photoId}':
+    get:
+      tags:
+        - photo
+      summary: Find photo by ID
+      description: Returns a single photo
+      operationId: getPhotoById
+      parameters:
+        - name: photoId
+          in: path
+          description: ID of photo to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Photo'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Photo'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Photo not found
+      security:
+        - api_key: []
+    post:
+      tags:
+        - photo
+      summary: Updates a photo in the store with form data
+      operationId: updatePhotoWithForm
+      parameters:
+        - name: photoId
+          in: path
+          description: ID of photo that needs to be updated
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '405':
+          description: Invalid input
+      security:
+        - gallerystore_auth:
+            - 'write:photo'
+            - 'read:photo'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Updated name of the photo
+                  type: string
+                status:
+                  description: Updated status of the photo
+                  type: string
+    delete:
+      tags:
+        - photo
+      summary: Deletes a photo
+      operationId: deletePhoto
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: photoId
+          in: path
+          description: Photo id to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Photo not found
+      security:
+        - gallerystore_auth:
+            - 'write:photo'
+            - 'read:photo'
+  '/photo/{photoId}/uploadImage':
+    post:
+      tags:
+        - photo
+      summary: uploads an image
+      operationId: uploadFile
+      parameters:
+        - name: photoId
+          in: path
+          description: ID of photo to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      security:
+        - gallerystore_auth:
+            - 'write:photo'
+            - 'read:photo'
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  schemas:
+    Photo:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: Photo Name
+        description:
+          type: string
+          example: Photo Description
+        path:
+          type: string
+          example: Photo URL
+        path_thumbnail:
+          type: string
+          example: Photo Thumbnail URL
+      xml:
+        name: Photo
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+  requestBodies:
+    Photo:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Photo'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Photo'
+      description: Photo object that needs to be added to the store
+      required: true
+  securitySchemes:
+    gallerystore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
+          scopes:
+            'write:photo': modify photo in your account
+            'read:photo': read your photo
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

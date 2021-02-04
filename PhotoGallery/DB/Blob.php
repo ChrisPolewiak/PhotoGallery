@@ -11,7 +11,7 @@ use MicrosoftAzure\Storage\Common\ServiceException;
 
 class Blob {
 
-    function _constructor()
+    function __construct()
     {
 
     }
@@ -19,8 +19,8 @@ class Blob {
     function params()
     {
         $params = func_get_args();
-        $this->ConnectionString_Primary = $params[0]["AzureStorageConnectionString_Primary"];
-        $this->ConnectionString_Secondary = $params[0]["AzureStorageConnectionString_Secondary"];
+        $this->ConnectionString_Primary = $params[0]['AzureStorageConnectionString_Primary'];
+        $this->ConnectionString_Secondary = $params[0]['AzureStorageConnectionString_Secondary'];
     }
 
     function createBlobService()
@@ -43,7 +43,7 @@ class Blob {
         catch(ServiceException $e){
             $code = $e->getCode();
             $error_message = $e->getMessage();
-            echo $code.": ".$error_message."<br />";
+            echo $code . ': ' . $error_message . '<br />';
         }
 
     }
@@ -57,7 +57,7 @@ class Blob {
         $options->setBlobContentType($contentType);
 
         try    {
-            //Upload blob
+            // Upload blob
             $blobRestProxy->createBlockBlob( $containerName, $filename, $filedata, $options );
         }
         catch(ServiceException $e){
@@ -66,11 +66,8 @@ class Blob {
             // http://msdn.microsoft.com/library/azure/dd179439.aspx
             $code = $e->getCode();
             $error_message = $e->getMessage();
-            echo $code.": ".$error_message."<br />";
+            echo $code . ': ' . $error_message . '<br />';
         }
     }
 
 }
-
-
-?>
