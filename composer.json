@@ -1,7 +1,11 @@
 {
-    "name": "polewiak/PhotoGallery",
+    "name": "polewiak/photogallery",
     "description": "Storage Photos on Azure.",
-    "keywords": [ "php", "azure", "photo" ],
+    "keywords": [
+        "php",
+        "azure",
+        "photo"
+    ],
     "license": "Apache-2.0",
     "authors": [
         {
@@ -10,14 +14,20 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
-        "microsoft/windowsazure": "^0.4",
-        "microsoft/azure-storage": "^0.19"
+        "php": "^7.4 || ^8.0",
+        "microsoft/azure-storage-blob": "^1.5"
+    },
+    "config": {
+        "platform": {
+            "php": "8.1"
+        }
     },
     "autoload": {
         "psr-4": {
             "PhotoGallery\\": "PhotoGallery/",
             "codeStamp\\": "codeStamp/"
         }
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
